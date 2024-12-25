@@ -1,15 +1,37 @@
 import bodyparser from "body-parser";
 import express from "express";
+import mongoose from "mongoose";
+import jwt from "jsonwebtoken";
 
 import userRouter from "./routes/usersRoutes.js";
-import mongoose from "mongoose";
+import galleryItemRouter from "./routes/galleryItemRoute.js";
+import categoryRouter from "./routes/categoryRoute.js";
+
 const app = express();
 app.use(bodyparser.json());
 
 const connectionString =
   "mongodb+srv://tester2:321@cluster0.jyjaj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
+app.use((req, res, next) => {
+  const token = req.header("Authorization")?.replace("Bearer", "");
+
+  if (token != null) {
+    jwt.verify(token, "secret", (err, decoded) => {
+      if (decoded != null) {
+        req.user = decoded;
+        console.log(decoded);
+        next();
+      }
+    });
+  } else {
+    next();
+  }
+});
+
 app.use("/api/users", userRouter);
+app.use("/api/gallery", galleryItemRouter);
+app.use("/api/category", categoryRouter);
 
 mongoose
   .connect(connectionString)

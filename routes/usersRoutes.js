@@ -1,20 +1,24 @@
 import express from "express";
 
 import {
-  getUsers,
+  loginUser,
+  //getUsers,
   postUsers,
-  deleteUsers,
-  putUsers,
+  //deleteUsers,
+  //putUsers,
 } from "../controllers/userControllers.js";
 
 const userRouter = express.Router();
 
-userRouter.get("/", getUsers);
+//userRouter.get("/", getUsers);
 
 userRouter.post("/", postUsers);
 
-userRouter.delete("/", deleteUsers);
+userRouter.post("/login", loginUser);
 
-userRouter.put("/", putUsers);
+
+//userRouter.delete("/", deleteUsers);
+
+//userRouter.put("/", putUsers);
 
 export default userRouter;

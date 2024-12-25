@@ -6,22 +6,40 @@ const userSchema = mongoose.Schema({
     required: true,
     unique: true,
   },
-  firstName: {
-    type: String,
-  },
-  lastName: {
-    type: String,
-  },
-  img: {
-    type: String,
-    default: "https://www.example.com/default-avatar.png",
-  },
   password: {
     type: String,
     required: true,
   },
+  firstName: {
+    type: String,
+    required: true,
+  },
+  lastName: {
+    type: String,
+    required: true,
+  },
+  type: {
+    type: String,
+    required: true,
+    default: "customer",
+  },
+  Whatsapp: {
+    type: String,
+    required: true,
+  },
   phone: {
-    type: Number,
+    type: String,
+    required: true,
+  },
+  disable: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
+  emailVerified: {
+    type: Boolean,
+    required: true,
+    default: false,
   },
 });
 
